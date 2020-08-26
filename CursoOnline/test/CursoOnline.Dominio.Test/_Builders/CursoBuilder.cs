@@ -1,4 +1,5 @@
-﻿using CursoOnline.Dominio.Cursos;
+﻿using Bogus;
+using CursoOnline.Dominio.Cursos;
 
 namespace CursoOnline.Dominio.Test._Builders
 {
@@ -12,7 +13,15 @@ namespace CursoOnline.Dominio.Test._Builders
 
         public static CursoBuilder Novo()
         {
-            return new CursoBuilder();
+            var fake = new Faker();
+            return new CursoBuilder()
+            {
+                _nomeDoCurso = fake.Random.Word(),
+                _descricao = fake.Lorem.Paragraph(),
+                _cargaHoraria = fake.Random.Double(50, 1000),
+                _publicoAlvo = (PublicoAlvo) 1,
+                _valorDoCurso = fake.Random.Double(100, 1000)
+            };
         }
 
         public CursoBuilder ComNome(string nome)
